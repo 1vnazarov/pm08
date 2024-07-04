@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const [trueCartItems, setTrueCartItems] = useState([])
   const [total, setTotal] = useState(0)
 const navigate = useNavigate()
   const update = () => {
@@ -16,6 +17,7 @@ const navigate = useNavigate()
       if (result.error) {
         navigate("/auth")
       }
+      setTrueCartItems(result)
       const counts = result.reduce((acc, product) => {
         acc[product.product_id] = (acc[product.product_id] || 0) + 1;
         return acc;
@@ -80,8 +82,8 @@ const navigate = useNavigate()
                   onClick={async () => {
                     await fetch(`https://exam.сделай.site/cart/${item.id}`, {method: "DELETE", headers: {"Authorization": `Bearer ${localStorage.token}`}})
                     update()
+                    if (item.quantity == 0) delete cartItems[cartItems.indexOf(item)]
                   }}
-                  disabled={item.quantity === 1}
                 >
                   -
                 </button>
@@ -91,7 +93,12 @@ const navigate = useNavigate()
         </tbody>
       </table>
       <p className="fw-bold text-end w-75 m-auto">Итого: {total} руб</p>
-      <button type="button" className="btn btn-primary mx-5">Оформить заказ</button>
+      <button type="button" className="btn btn-primary mx-5" onClick={() => {
+            fetch("https://exam.сделай.site/order", {method:"POST", headers: {"Content-Type": "application/json", "Authorization": `Bearer ${localStorage.token}`}}).then(response => response.json())
+            .then(result => {
+              console.log(result)
+            })
+      }}>Оформить заказ</button>
     </main>
   );
 }

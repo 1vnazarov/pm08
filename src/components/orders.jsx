@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import Order from './order';
 
 const Orders = (props) => {
   const navigate = useNavigate()
@@ -8,9 +9,10 @@ const Orders = (props) => {
     if (!localStorage.token) {
       navigate("/auth")
     }
-    fetch("https://exam.сделай.site/cart").then(response => response.json())
+    fetch("https://exam.сделай.site/order", {headers: {["Authorization"]: `Bearer ${localStorage.token}`}}).then(response => response.json())
     .then(result => {
       console.log(result)
+      if (Object.entries(result).length > 0) setOrders(result)
     })
     .catch(error => console.log('error', error));
 
@@ -23,12 +25,12 @@ const Orders = (props) => {
           <tr>
             <th scope="col">№ п/п</th>
             <th scope="col">Наименование</th>
-            <th scope="col">Описание</th>
             <th scope="col">Количество</th>
             <th scope="col">Стоимость</th>
           </tr>
         </thead>
         <tbody>
+          {orders.map((order) => <Order data={order}/>)}
         </tbody>
       </table>
     </main>
