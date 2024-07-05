@@ -43,6 +43,16 @@ const Product = (props) => {
     }} className="btn btn-primary w-50">
       Купить
     </button>
+    {localStorage.token === "Dcs0AKSZTxlrHUcv5MK7u2yIXvPLpGdXgdRflZ6NZEtHwRIE3PYjO8W4mLxS5c6epvxYzhRgpjKWz6EH" && <button type="button" onClick={() => {
+          fetch(`https://exam.сделай.site/product/${props.data.id}`, {method: "DELETE", headers: {"Authorization": `Bearer ${localStorage.token}`}})
+          .then(result => {
+            console.log(result)
+              window.location.reload()
+            })
+          .catch(error => console.log('error', error));
+    }} className="btn btn-danger w-25 mx-2">
+      Удалить
+    </button>}
   </div>
 }
 

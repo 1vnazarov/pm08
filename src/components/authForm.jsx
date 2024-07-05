@@ -21,7 +21,7 @@ const AuthForm = () => {
       .then(result => {
         console.log(result)
         localStorage.token = result?.data.user_token
-        if (localStorage.token) navigate("/auth")
+        if (localStorage.token) navigate("/")
       })
       .catch(error => console.log('error', error));
   }

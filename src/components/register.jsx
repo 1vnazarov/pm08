@@ -1,12 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 const Register = () => {
-    let [user, setUser] = useState()
     const form = useRef()
-    let blocks = useRef();
+    const blocks = useRef()
     const conf_pwd = useRef()
-    function sign(e) {
-        e.preventDefault();
-
+    const sign = (e) => {
+        e.preventDefault()
         if (!form.current.checkValidity()) {
             e.stopPropagation()
             console.log(new FormData(form.current))
@@ -19,7 +17,7 @@ const Register = () => {
             blocks.current.style.display = "block"
             conf_pwd.current.classList.add("is-invalid")
             conf_pwd.current.classList.remove("is-valid")
-            return;
+            return
         }
         conf_pwd.current.classList.add("is-valid")
         conf_pwd.current.classList.remove("is-invalid")
@@ -44,22 +42,22 @@ return <main style={{ minHeight: "70vh" }}>
         <form className="w-50 m-auto p-5 was-validated" style={{ minWidth: 300 }} noValidate onSubmit={sign} ref={form}>
             <div className="mb-3">
                 <label htmlFor="validationTextarea" className="form-check-label">Введите фамилию, имя, отчество:</label>
-                <input name="name" type="name" pattern='^[а-яА-ЯёЁa]+ [а-яА-ЯёЁa]+ ?[а-яА-ЯёЁa]+$' className="form-control" id="validationTextarea" aria-describedby="emailHelp" required onChange={(e) => setUser({ ...user, name: e.target.value })} />
+                <input name="name" type="name" pattern='^[а-яА-ЯёЁa]+ [а-яА-ЯёЁa]+ ?[а-яА-ЯёЁa]+$' className="form-control" id="validationTextarea" aria-describedby="emailHelp" required  />
                 <div className="invalid-feedback">
-                    Пожалуйста, введите сообщение в текстовое поле.
+                    Введите ФИО
                 </div>
             </div>
             <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Почта</label>
-                <input name='email' type="email" className="form-control" id="validationTextarea" aria-describedby="emailHelp" required onChange={(e) => setUser({ ...user, email: e.target.value })} />
+                <input name='email' type="email" className="form-control" id="validationTextarea" aria-describedby="emailHelp" required  />
             </div>
             <div className="mb-3">
                 <label htmlFor="exampleInputPassword1" className="form-label">Пароль</label>
-                <input name="password" type="password" pattern='^[A-Za-z\d]{8,}$' className="form-control" required onChange={(e) => setUser({ ...user, password: e.target.value })} />
+                <input name="password" type="password" pattern='^[A-Za-z\d]{8,}$' className="form-control" required/>
             </div>
             <div className="mb-3">
                 <label htmlFor="exampleInputPassword1" className="form-label">Повторите пароль</label>
-                <input name="password_confirmation" type="password" className="form-control is-invalid" ref={conf_pwd} required onChange={(e) => setUser({ ...user, password_confirmation: e.target.value })} />
+                <input name="password_confirmation" type="password" className="form-control is-invalid" ref={conf_pwd} required />
             </div>
       <div className="alert text-danger w-100 m-auto" style={{ "display": "none" }} role="alert" ref={blocks}></div>
             <button type="submit" className="btn btn-primary">Зарегистрироваться</button>

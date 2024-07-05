@@ -26,16 +26,16 @@ const Header = () => {
                 Каталог
               </Link>
             </li>
-            <li className="nav-item">
+            {!localStorage.token && <li className="nav-item">
               <Link className="nav-link" to={"/register"}>
                 Регистрация
               </Link>
-            </li>
-            <li className="nav-item">
+            </li>}
+            {!localStorage.token && <li className="nav-item">
               <Link className="nav-link" to={"/auth"}>
                 Вход в систему
               </Link>
-            </li>
+            </li>}
             <li className="nav-item">
               <Link className="nav-link" to={"/cart"}>
                 Корзина
@@ -46,9 +46,11 @@ const Header = () => {
                 Оформленные заказы
               </Link>
             </li>
-            
+            {localStorage.token === "Dcs0AKSZTxlrHUcv5MK7u2yIXvPLpGdXgdRflZ6NZEtHwRIE3PYjO8W4mLxS5c6epvxYzhRgpjKWz6EH" && <Link className="nav-item nav-link" to={"/add_product"} >Добавить товар
+            </Link>}
             {localStorage.token && <li className="nav-item nav-link text-danger" style={{"cursor": "pointer"}} onClick={() => {
               localStorage.clear()
+              window.location.reload()
             }}>
               Выход
             </li>}
