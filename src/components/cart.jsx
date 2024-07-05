@@ -97,6 +97,7 @@ const navigate = useNavigate()
             fetch("https://exam.сделай.site/order", {method:"POST", headers: {"Content-Type": "application/json", "Authorization": `Bearer ${localStorage.token}`}}).then(response => response.json())
             .then(result => {
               console.log(result)
+              navigate("/orders")
             })
       }}>Оформить заказ</button>
     </main>

@@ -1,5 +1,7 @@
 import React, { useRef } from "react"
+import { useNavigate } from "react-router"
 const Register = () => {
+    const navigate = useNavigate()
     const form = useRef()
     const blocks = useRef()
     const conf_pwd = useRef()
@@ -31,6 +33,7 @@ const Register = () => {
             .then(result => {
                 console.log(result)
                 localStorage.token = result?.data.user_token
+                if (localStorage.token) navigate("/auth")
             })
             .catch(error => console.log('error', error));
     }
