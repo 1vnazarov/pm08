@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef } from "react"
+import { useNavigate } from "react-router"
 
-function AuthForm() {
-  let [user, setUser] = useState();
+const AuthForm = () => {
   const form = useRef()
-  function auth(e) {
-    e.preventDefault();
+  const navigate = useNavigate()
+  const auth = (e) => {
+    e.preventDefault()
     if (!form.current.checkValidity()) {
       e.stopPropagation()
       form.current.classList.add('was-validated')
@@ -20,6 +21,7 @@ function AuthForm() {
       .then(result => {
         console.log(result)
         localStorage.token = result?.data.user_token
+        if (localStorage.token) navigate("/auth")
       })
       .catch(error => console.log('error', error));
   }
@@ -32,15 +34,14 @@ return (
       <form className="w-50 m-auto p-5 was-validated" style={{ minWidth: 300 }} noValidate onSubmit={auth} ref={form}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Почта</label>
-          <input name='email' type="email" className="form-control" id="validationTextarea" aria-describedby="emailHelp" required onChange={(e) => setUser({ ...user, email: e.target.value })} />
+          <input name='email' type="email" className="form-control" id="validationTextarea" aria-describedby="emailHelp" required />
           <div className="form-text">Мы никогда не делимся Вашими e-mail ни с кем. Обязательное поле</div>
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">Пароль</label>
-          <input name="password" type="password" pattern='^[A-Za-z\d]{8,}$' className="form-control" id="validationTextarea" required onChange={(e) => setUser({ ...user, password: e.target.value })} />
+          <input name="password" type="password" pattern='^[A-Za-z\d]{8,}$' className="form-control" id="validationTextarea" required  />
           <div className="form-text">Обязательное поле</div>
         </div>
-
         <input type="submit" className="btn btn-primary" value="Войти" />
       </form>
     </div>

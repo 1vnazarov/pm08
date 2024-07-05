@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 function Cart() {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([])
   const [trueCartItems, setTrueCartItems] = useState([])
   const [total, setTotal] = useState(0)
 const navigate = useNavigate()
@@ -19,9 +19,9 @@ const navigate = useNavigate()
       }
       setTrueCartItems(result)
       const counts = result.reduce((acc, product) => {
-        acc[product.product_id] = (acc[product.product_id] || 0) + 1;
-        return acc;
-        }, {});
+        acc[product.product_id] = (acc[product.product_id] || 0) + 1
+        return acc
+        }, {})
         result = result.map(product => ({
           ...product,
           quantity: counts[product.product_id]
@@ -100,7 +100,7 @@ const navigate = useNavigate()
             })
       }}>Оформить заказ</button>
     </main>
-  );
+  )
 }
 
-export default Cart;
+export default Cart

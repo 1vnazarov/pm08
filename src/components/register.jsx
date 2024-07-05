@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState } from "react"
 const Register = () => {
-    let [user, setUser] = useState();
+    let [user, setUser] = useState()
     const form = useRef()
     let blocks = useRef();
     const conf_pwd = useRef()
@@ -14,18 +14,16 @@ const Register = () => {
             return
         }
         const data = new FormData(form.current)
-        // Проверяем совпадение паролей
         if (data.get("password") !== data.get("password_confirmation")) {
-            // Отображаем сообщение об ошибке
-            blocks.current.textContent = "Пароли не совпадают";
-            blocks.current.style.display = "block";
+            blocks.current.textContent = "Пароли не совпадают"
+            blocks.current.style.display = "block"
             conf_pwd.current.classList.add("is-invalid")
             conf_pwd.current.classList.remove("is-valid")
             return;
         }
         conf_pwd.current.classList.add("is-valid")
         conf_pwd.current.classList.remove("is-invalid")
-        blocks.current.style.display = "none";
+        blocks.current.style.display = "none"
         fetch("https://exam.сделай.site/signup", {
             method: "POST",
             headers: { ["Content-Type"]: "application/json" },
@@ -69,6 +67,5 @@ return <main style={{ minHeight: "70vh" }}>
   
     </div>
 </main>
-
 }
 export default Register

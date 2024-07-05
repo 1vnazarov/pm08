@@ -1,9 +1,7 @@
 import React from "react";
 import logo from "../image/logo.jpg"
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 const Header = () => {
-  const navigate = useNavigate()
     return <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-">
       <div className="container-fluid">
@@ -49,13 +47,8 @@ const Header = () => {
               </Link>
             </li>
             
-            {localStorage.token && <li className="nav-item nav-link text-danger" onClick={() => {
-                        fetch(`https://exam.сделай.site/logout`, {headers: {"Authorization": `Bearer ${localStorage.token}`}}).then(response => response.json())
-                        .then(result => {
-                          console.log(result)
-                            navigate("/auth")
-                        })
-                        .catch(error => console.log('error', error));
+            {localStorage.token && <li className="nav-item nav-link text-danger" style={{"cursor": "pointer"}} onClick={() => {
+              localStorage.clear()
             }}>
               Выход
             </li>}
